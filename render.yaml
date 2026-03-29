@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: stocksense-ai
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 120
+    envVars:
+      - key: ALERT_EMAIL_SENDER
+        sync: false
+      - key: ALERT_EMAIL_PASSWORD
+        sync: false
+      - key: ALERT_EMAIL_RECIPIENTS
+        sync: false
