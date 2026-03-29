@@ -669,7 +669,31 @@ def start_scheduler():
     add_log(f"Scheduler started — 4 daily scans (IST): 09:30 · 11:00 · 13:30 · 14:30")
     return scheduler
 
+@app.route("/test-email")
+def test_email():
+    ok = build_and_send_email([{
+        "symbol": "RELIANCE.NS",
+        "score": 8.5,
+        "breakdown": {"breakout":1,"trend":1,"volume":1,"rsi":1,"near_high":1},
+        "ind": {"rsi": 63.2, "vol_ratio": 2.4, "change_pct": 1.8},
+        "news": ["Reliance reports record quarterly profit"],
+        "levels": {
+            "cmp": 2850.00,
+            "entry_low": 2841.45,
+            "entry_high": 2858.55,
+            "target_low": 2891.23,
+            "target_high": 2900.77,
+            "stop_loss": 2815.87,
+        }
+    }])
+    return jsonify({"email_sent": ok})
+```
 
+**Step 5** — Click **"Commit changes"** (green button)
+
+**Step 6** — Wait 2 minutes for Render to redeploy → then visit:
+```
+https://stocksense-ai.onrender.com/test-email
 # ─── ENTRY POINT ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
